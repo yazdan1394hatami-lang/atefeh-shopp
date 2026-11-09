@@ -7,43 +7,42 @@
 <title>فروشگاه عاطفه</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Tahoma,Arial;background:#f7f4fa;color:#292333}
-header{background:linear-gradient(120deg,#7029a5,#b64bc0);color:white;padding:25px 16px;text-align:center}
-header h1{margin:0 0 10px;font-size:30px}
-nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
-button{border:0;border-radius:10px;padding:12px 17px;cursor:pointer;font-weight:bold}
-nav button{background:white;color:#742a99}
-main{max-width:1000px;margin:25px auto;padding:0 14px}
-.search{width:100%;padding:15px;border:1px solid #ddd;border-radius:12px;font-size:16px;margin-bottom:20px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
-.card{background:white;border-radius:16px;padding:17px;box-shadow:0 3px 14px #00000010}
-.pic{height:125px;background:#f2e4f8;border-radius:12px;display:grid;place-items:center;font-size:52px}
-.card h3{margin-bottom:8px}
-.price{color:#852caa;font-weight:bold}
-.card button,.primary{background:#812ba5;color:white;margin-top:10px;width:100%}
-.panel{background:white;border-radius:16px;padding:20px;margin:20px 0;box-shadow:0 3px 14px #00000010}
-input{width:100%;padding:12px;margin:7px 0;border:1px solid #ddd;border-radius:9px;font-size:15px}
+body{margin:0;font-family:Tahoma;background:#f8f4fb;color:#292333}
+header{background:linear-gradient(120deg,#7029a5,#c04cba);color:white;text-align:center;padding:25px 12px}
+header h1{font-size:29px;margin:5px}
+nav{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:15px}
+button{border:0;border-radius:10px;padding:12px;cursor:pointer;font-weight:bold}
+nav button{background:white;color:#762b9c}
+main{max-width:1000px;margin:25px auto;padding:0 13px}
+input{width:100%;padding:13px;margin:7px 0;border:1px solid #ddd;border-radius:9px;font-size:15px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
+.card,.panel{background:white;border-radius:15px;padding:15px;box-shadow:0 3px 12px #0001}
+.pic{height:160px;background:#f1e4f8;border-radius:12px;overflow:hidden;display:grid;place-items:center;font-size:55px}
+.pic img{width:100%;height:100%;object-fit:cover}
+.price{color:#8729a8;font-weight:bold}
+.primary{background:#812ba5;color:white;width:100%;margin-top:10px}
+.danger{background:#ffe3e3;color:#a22}
 .hidden{display:none}
-.item{padding:12px 0;border-bottom:1px solid #eee}
-.danger{background:#ffe5e5;color:#a22}
+.item{padding:13px 0;border-bottom:1px solid #eee;line-height:2}
 footer{text-align:center;padding:25px;color:#777}
 </style>
 </head>
 <body>
+
 <header>
 <h1>💜 فروشگاه عاطفه</h1>
-<p>خرید آسان، سریع و مطمئن</p>
+<p>هر چیزی که دوست داری، اینجاست!</p>
 <nav>
-<button onclick="show('home')">صفحه اصلی</button>
-<button onclick="show('cart')">🛒 سبد خرید (<span id="count">0</span>)</button>
-<button onclick="show('login')">مدیریت فروشگاه</button>
+<button onclick="show('home')">خانه</button>
+<button onclick="show('cart')">🛒 سبد خرید <span id="count">۰</span></button>
+<button onclick="show('login')">مدیریت</button>
 </nav>
 </header>
 
 <main>
 <section id="home">
 <h2>✨ محصولات فروشگاه</h2>
-<input class="search" id="search" placeholder="دنبال چه محصولی می‌گردی؟" oninput="render()">
+<input id="search" placeholder="جستجوی محصول..." oninput="render()">
 <div class="products" id="products"></div>
 </section>
 
@@ -51,10 +50,10 @@ footer{text-align:center;padding:25px;color:#777}
 <div class="panel">
 <h2>🛒 سبد خرید</h2>
 <div id="cartItems"></div>
-<h3 id="total">مبلغ کل: ۰ تومان</h3>
+<h3 id="total"></h3>
 <input id="customer" placeholder="نام و نام خانوادگی">
 <input id="phone" placeholder="شماره تماس">
-<input id="address" placeholder="آدرس تحویل سفارش">
+<input id="address" placeholder="آدرس تحویل">
 <button class="primary" onclick="order()">ثبت سفارش</button>
 </div>
 </section>
@@ -64,26 +63,28 @@ footer{text-align:center;padding:25px;color:#777}
 <h2>🔐 ورود مدیر</h2>
 <input id="pass" type="password" placeholder="رمز مدیریت">
 <button class="primary" onclick="login()">ورود</button>
-<p id="error" style="color:red"></p>
+<p id="error"></p>
 </div>
 </section>
 
 <section id="admin" class="hidden">
 <div class="panel">
 <h2>⚙️ پنل مدیریت</h2>
-<h3>افزودن محصول</h3>
+<h3>افزودن محصول جدید</h3>
 <input id="pname" placeholder="نام محصول">
 <input id="pprice" type="number" placeholder="قیمت به تومان">
-<input id="pemoji" placeholder="ایموجی محصول، مثلا 👟">
+<label>عکس محصول را انتخاب کن:</label>
 <input id="pimage" type="file" accept="image/*">
 <button class="primary" onclick="addProduct()">افزودن محصول</button>
 </div>
-<div class="panel">
-<h3>مدیریت محصولات</h3>
+
+<div class="panel" style="margin-top:15px">
+<h3>محصولات من</h3>
 <div id="adminProducts"></div>
 </div>
-<div class="panel">
-<h3>📦 سفارش‌های ثبت شده</h3>
+
+<div class="panel" style="margin-top:15px">
+<h3>📦 سفارش‌های مشتریان</h3>
 <div id="orders"></div>
 </div>
 <button class="danger" onclick="logout()">خروج از مدیریت</button>
@@ -93,22 +94,28 @@ footer{text-align:center;padding:25px;color:#777}
 <footer>فروشگاه عاطفه 💜</footer>
 
 <script>
-const defaultProducts=[
+const defaults=[
 {id:1,name:"کیف زیبا",price:450000,emoji:"👜"},
 {id:2,name:"کفش اسپرت",price:850000,emoji:"👟"},
 {id:3,name:"ساعت شیک",price:620000,emoji:"⌚"},
-{id:4,name:"هدفون",price:390000,emoji:"🎧"},
-{id:5,name:"عروسک",price:250000,emoji:"🧸"},
-{id:6,name:"عینک آفتابی",price:310000,emoji:"🕶️"}
+{id:4,name:"هدفون",price:390000,emoji:"🎧"}
 ];
 
-let products=JSON.parse(localStorage.getItem("atefehProducts"))||defaultProducts;
-let cart=[];
+let products=JSON.parse(localStorage.getItem("atefehProducts"))||defaults;
 let orders=JSON.parse(localStorage.getItem("atefehOrders"))||[];
+let cart=[];
 
 function save(){
+try{
 localStorage.setItem("atefehProducts",JSON.stringify(products));
 localStorage.setItem("atefehOrders",JSON.stringify(orders));
+}catch(e){
+alert("حافظه گوشی پر شده؛ عکس کوچک‌تری انتخاب کن.");
+}
+}
+
+function money(n){
+return Number(n).toLocaleString("fa-IR")+" تومان";
 }
 
 function show(id){
@@ -118,33 +125,30 @@ if(id==="cart")renderCart();
 if(id==="admin")renderAdmin();
 }
 
-function money(n){return Number(n).toLocaleString("fa-IR")+" تومان"}
-
 function render(){
 let q=document.getElementById("search").value.trim();
 let list=products.filter(p=>p.name.includes(q));
 document.getElementById("products").innerHTML=list.map(p=>`
 <div class="card">
-<div class="pic">${p.emoji||"📦"}</div>
+<div class="pic">${p.image?`<img src="${p.image}" alt="${p.name}">`:p.emoji||"📦"}</div>
 <h3>${p.name}</h3>
 <div class="price">${money(p.price)}</div>
-<button onclick="addCart(${p.id})">افزودن به سبد خرید</button>
-</div>`).join("")||"محصولی پیدا نشد";
+<button class="primary" onclick="addCart(${p.id})">افزودن به سبد خرید</button>
+</div>`).join("")||"محصولی پیدا نشد.";
 }
 
 function addCart(id){
 cart.push(id);
 document.getElementById("count").textContent=cart.length.toLocaleString("fa-IR");
-alert("محصول به سبد خرید اضافه شد 💜");
+alert("به سبد خرید اضافه شد 💜");
 }
 
 function renderCart(){
-let html=cart.map((id,i)=>{
+document.getElementById("cartItems").innerHTML=cart.map((id,i)=>{
 let p=products.find(x=>x.id===id);
-return p?`<div class="item">${p.emoji} ${p.name} - ${money(p.price)}
+return p?`<div class="item">${p.name} - ${money(p.price)}
 <button class="danger" onclick="removeCart(${i})">حذف</button></div>`:"";
-}).join("");
-document.getElementById("cartItems").innerHTML=html||"سبد خرید خالی است.";
+}).join("")||"سبد خرید خالی است.";
 let total=cart.reduce((s,id)=>s+(products.find(p=>p.id===id)?.price||0),0);
 document.getElementById("total").textContent="مبلغ کل: "+money(total);
 }
@@ -160,14 +164,14 @@ let name=document.getElementById("customer").value.trim();
 let phone=document.getElementById("phone").value.trim();
 let address=document.getElementById("address").value.trim();
 if(!cart.length)return alert("سبد خرید خالی است");
-if(!name||!phone||!address)return alert("لطفاً اطلاعات سفارش را کامل کن");
+if(!name||!phone||!address)return alert("اطلاعات را کامل کن");
 let items=cart.map(id=>products.find(p=>p.id===id)).filter(Boolean);
 let total=items.reduce((s,p)=>s+p.price,0);
-orders.push({name,phone,address,items,total,date:new Date().toLocaleString("fa-IR")});
+orders.push({name,phone,address,items:items.map(p=>p.name),total,date:new Date().toLocaleString("fa-IR")});
 save();
 cart=[];
 document.getElementById("count").textContent="۰";
-alert("سفارش شما ثبت شد 💜");
+alert("سفارش ثبت شد 💜");
 show("home");
 }
 
@@ -175,7 +179,7 @@ function login(){
 if(document.getElementById("pass").value==="mrhaji.IR1"){
 show("admin");
 }else{
-document.getElementById("error").textContent="رمز اشتباه است!";
+document.getElementById("error").textContent="رمز اشتباه است";
 }
 }
 
@@ -184,38 +188,55 @@ function logout(){show("home")}
 function addProduct(){
 let name=document.getElementById("pname").value.trim();
 let price=Number(document.getElementById("pprice").value);
-let emoji=document.getElementById("pemoji").value.trim()||"📦";
-if(!name||price<=0)return alert("نام و قیمت درست وارد کن");
-products.push({id:Date.now(),name,price,emoji});
+let file=document.getElementById("pimage").files[0];
+
+if(!name||price<=0)return alert("نام و قیمت را وارد کن");
+if(file && !file.type.startsWith("image/"))return alert("فقط عکس انتخاب کن");
+
+function finish(image){
+products.push({id:Date.now(),name,price,image,emoji:"📦"});
 save();
-document.getElementById("pname").value="";
-document.getElementById("pprice").value="";
-document.getElementById("pemoji").value="";
 render();
 renderAdmin();
-alert("محصول اضافه شد");
+document.getElementById("pname").value="";
+document.getElementById("pprice").value="";
+document.getElementById("pimage").value="";
+alert("محصول اضافه شد 💜");
+}
+
+if(file){
+if(file.size>700000)return alert("عکس باید کمتر از ۷۰۰ کیلوبایت باشد");
+let reader=new FileReader();
+reader.onload=()=>finish(reader.result);
+reader.onerror=()=>alert("خواندن عکس ناموفق بود");
+reader.readAsDataURL(file);
+}else{
+finish("");
+}
 }
 
 function deleteProduct(id){
-if(!confirm("این محصول حذف شود؟"))return;
+if(!confirm("محصول حذف شود؟"))return;
 products=products.filter(p=>p.id!==id);
 save();render();renderAdmin();
 }
 
 function renderAdmin(){
 document.getElementById("adminProducts").innerHTML=products.map(p=>`
-<div class="item">${p.emoji} ${p.name} - ${money(p.price)}
+<div class="item">${p.image?`<img src="${p.image}" width="55" style="vertical-align:middle">`:p.emoji}
+${p.name} - ${money(p.price)}
 <button class="danger" onclick="deleteProduct(${p.id})">حذف</button></div>`).join("");
 document.getElementById("orders").innerHTML=orders.map(o=>`
 <div class="item">
 <strong>${o.name}</strong><br>
-تلفن: ${o.phone}<br>
+شماره: ${o.phone}<br>
 آدرس: ${o.address}<br>
-محصولات: ${o.items.map(p=>p.name).join("، ")}<br>
+محصولات: ${o.items.join("، ")}<br>
 مبلغ: ${money(o.total)}<br>
-زمان: ${o.date}
+تاریخ: ${o.date}
 </div>`).join("")||"هنوز سفارشی ثبت نشده است.";
 }
+
 render();
 </script>
 </body>
