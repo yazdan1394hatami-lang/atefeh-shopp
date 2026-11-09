@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>فروشگاه عاطفه</title>
+<style>
+body{font-family:tahoma;background:#fff5f8;margin:0;color:#333}
+header{background:#e91e63;color:white;padding:22px;text-align:center}
+main{padding:15px;max-width:800px;margin:auto}
+button{background:#e91e63;color:white;border:0;padding:12px;border-radius:9px;cursor:pointer}
+input{padding:12px;margin:5px;width:90%;border:1px solid #ddd;border-radius:8px}
+.product{background:white;padding:15px;margin:12px 0;border-radius:12px}
+</style>
+</head>
+<body>
+<header><h1>فروشگاه عاطفه 🌸</h1><p>خرید آسان و مطمئن</p></header>
+<main>
+<h2>افزودن محصول</h2>
+<input id="name" placeholder="نام محصول">
+<input id="price" type="number" placeholder="قیمت به تومان">
+<button onclick="addProduct()">افزودن محصول</button>
+<h2>محصولات فروشگاه</h2>
+<div id="products"></div>
+<h2>سبد خرید 🛒</h2>
+<div id="cart"></div>
+<button onclick="order()">ثبت سفارش</button>
+</main>
+<script>
+let products=[];
+let cart=[];
+function addProduct(){
+let name=document.getElementById('name').value;
+let price=document.getElementById('price').value;
+if(!name||!price)return alert('نام و قیمت را وارد کن');
+products.push({name,price});
+show();
+}
+function show(){
+document.getElementById('products').innerHTML=products.map((p,i)=>
+`<div class="product"><b>${p.name}</b><p>${p.price} تومان</p><button onclick="buy(${i})">افزودن به سبد</button></div>`).join('');
+}
+function buy(i){cart.push(products[i]);document.getElementById('cart').innerHTML=cart.map(p=>p.name+' - '+p.price+' تومان').join('<br>');}
+function order(){
+if(!cart.length)return alert('سبد خرید خالی است');
+alert('سفارش شما ثبت شد. برای نهایی کردن سفارش با فروشگاه تماس بگیرید.');
+}
+</script>
+</body>
+</html>
